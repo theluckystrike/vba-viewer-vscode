@@ -1,0 +1,365 @@
+{
+  "name": "zovo-vba-viewer",
+  "displayName": "VBA Viewer & Macro Extractor",
+  "description": "VBA viewer for VS Code: open the macros inside .xlsm, .xlsb, .xls, .docm, .doc, .pptm, .ppt and vbaProject.bin files without Office, with every module, its source in color, search and module details. Read-only; no macro runs.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1E2A22",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/vba-viewer-vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/theluckystrike/vba-viewer-vscode/issues"
+  },
+  "homepage": "https://github.com/theluckystrike/vba-viewer-vscode#readme",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "vba",
+    "excel macro",
+    "xlsm",
+    "macro",
+    "office"
+  ],
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onUri"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "vbaViewer.project",
+        "displayName": "VBA Viewer",
+        "selector": [
+          {
+            "filenamePattern": "vbaProject.bin"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "vbaViewer.macros",
+        "displayName": "VBA Viewer (macros)",
+        "selector": [
+          {
+            "filenamePattern": "*.xlsm"
+          },
+          {
+            "filenamePattern": "*.xlsb"
+          },
+          {
+            "filenamePattern": "*.xls"
+          },
+          {
+            "filenamePattern": "*.xltm"
+          },
+          {
+            "filenamePattern": "*.xlam"
+          },
+          {
+            "filenamePattern": "*.docm"
+          },
+          {
+            "filenamePattern": "*.dotm"
+          },
+          {
+            "filenamePattern": "*.doc"
+          },
+          {
+            "filenamePattern": "*.pptm"
+          },
+          {
+            "filenamePattern": "*.ppt"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vbaViewer.openMacros",
+        "title": "Open VBA Macros",
+        "category": "VBA Viewer",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "vbaViewer.openDefault",
+        "title": "Reopen with the Default Editor",
+        "category": "VBA Viewer",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "vbaViewer.openSample",
+        "title": "Open the Sample Workbook",
+        "category": "VBA Viewer"
+      },
+      {
+        "command": "vbaViewer.openWalkthrough",
+        "title": "Get Started",
+        "category": "VBA Viewer"
+      },
+      {
+        "command": "vbaViewer.moreViewers",
+        "title": "More free tools by Zovo",
+        "category": "VBA Viewer"
+      },
+      {
+        "command": "vbaViewer.supportDeveloper",
+        "title": "Support the developer",
+        "category": "VBA Viewer"
+      },
+      {
+        "command": "vbaViewer.exportModules",
+        "title": "Export All Modules (Pro)",
+        "category": "VBA Viewer",
+        "icon": "$(export)"
+      },
+      {
+        "command": "vbaViewer.scan",
+        "title": "Macro Security Scan (Pro)",
+        "category": "VBA Viewer",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "vbaViewer.compare",
+        "title": "Compare Macros with Another File (Pro)",
+        "category": "VBA Viewer",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "vbaViewer.zovoPro.exportModules",
+        "title": "Zovo Pro: Export all modules"
+      },
+      {
+        "command": "vbaViewer.zovoPro.scan",
+        "title": "Zovo Pro: Macro security scan"
+      },
+      {
+        "command": "vbaViewer.zovoPro.compare",
+        "title": "Zovo Pro: Compare macros"
+      },
+      {
+        "command": "vbaViewer.getPro",
+        "title": "Get Zovo Pro (USD 19 once, all 22 Zovo extensions)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.payWithPayPal",
+        "title": "Pay for Zovo Pro with PayPal (USD 19, team of 5 USD 59)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.unlockWithSponsors",
+        "title": "I already paid: unlock with GitHub Sponsors",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.enterLicenseKey",
+        "title": "Enter Zovo Pro license key",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.removeLicense",
+        "title": "Remove Zovo Pro from this editor",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.payByCard",
+        "title": "Pay for Zovo Pro by card (USD 19)",
+        "category": "Zovo Pro"
+      },
+      {
+        "command": "vbaViewer.enterKey",
+        "title": "Enter a key",
+        "category": "Zovo Pro"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "vbaViewer.openMacros",
+          "when": "(resourceExtname =~ /^\\.(xlsm|xlsb|xls|xltm|xlam|docm|dotm|doc|pptm|ppt)$/i || resourceFilename =~ /^vbaproject\\.bin$/i) && activeCustomEditorId != 'vbaViewer.project' && activeCustomEditorId != 'vbaViewer.macros'",
+          "group": "navigation@9"
+        },
+        {
+          "command": "vbaViewer.openDefault",
+          "when": "activeCustomEditorId == 'vbaViewer.macros'",
+          "group": "navigation@9"
+        },
+        {
+          "command": "vbaViewer.exportModules",
+          "when": "(activeCustomEditorId == 'vbaViewer.project' || activeCustomEditorId == 'vbaViewer.macros') && config.vbaViewer.showProTools",
+          "group": "1_vba@1"
+        },
+        {
+          "command": "vbaViewer.scan",
+          "when": "(activeCustomEditorId == 'vbaViewer.project' || activeCustomEditorId == 'vbaViewer.macros') && config.vbaViewer.showProTools",
+          "group": "1_vba@2"
+        },
+        {
+          "command": "vbaViewer.compare",
+          "when": "(activeCustomEditorId == 'vbaViewer.project' || activeCustomEditorId == 'vbaViewer.macros') && config.vbaViewer.showProTools",
+          "group": "1_vba@3"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "vbaViewer.openMacros",
+          "when": "(resourceExtname =~ /^\\.(xlsm|xlsb|xls|xltm|xlam|docm|dotm|doc|pptm|ppt)$/i || resourceFilename =~ /^vbaproject\\.bin$/i) && !explorerResourceIsFolder",
+          "group": "navigation@9"
+        },
+        {
+          "command": "vbaViewer.zovoPro.exportModules",
+          "when": "(resourceExtname =~ /^\\.(xlsm|xlsb|xls|xltm|xlam|docm|dotm|doc|pptm|ppt)$/i || resourceFilename =~ /^vbaproject\\.bin$/i) && !explorerResourceIsFolder && config.vbaViewer.showProTools",
+          "group": "zovoPro@1"
+        },
+        {
+          "command": "vbaViewer.zovoPro.scan",
+          "when": "(resourceExtname =~ /^\\.(xlsm|xlsb|xls|xltm|xlam|docm|dotm|doc|pptm|ppt)$/i || resourceFilename =~ /^vbaproject\\.bin$/i) && !explorerResourceIsFolder && config.vbaViewer.showProTools",
+          "group": "zovoPro@2"
+        },
+        {
+          "command": "vbaViewer.zovoPro.compare",
+          "when": "(resourceExtname =~ /^\\.(xlsm|xlsb|xls|xltm|xlam|docm|dotm|doc|pptm|ppt)$/i || resourceFilename =~ /^vbaproject\\.bin$/i) && !explorerResourceIsFolder && config.vbaViewer.showProTools",
+          "group": "zovoPro@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vbaViewer.openDefault",
+          "when": "(activeCustomEditorId == 'vbaViewer.project' || activeCustomEditorId == 'vbaViewer.macros')"
+        },
+        {
+          "command": "vbaViewer.exportModules",
+          "when": "config.vbaViewer.showProTools"
+        },
+        {
+          "command": "vbaViewer.scan",
+          "when": "config.vbaViewer.showProTools"
+        },
+        {
+          "command": "vbaViewer.compare",
+          "when": "config.vbaViewer.showProTools"
+        },
+        {
+          "command": "vbaViewer.zovoPro.exportModules",
+          "when": "false"
+        },
+        {
+          "command": "vbaViewer.zovoPro.scan",
+          "when": "false"
+        },
+        {
+          "command": "vbaViewer.zovoPro.compare",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VBA Viewer",
+      "properties": {
+        "vbaViewer.showAttributes": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show the hidden \"Attribute VB_...\" lines in the source view. The VBA editor in Office hides them; exported files always keep them."
+        },
+        "vbaViewer.exportEncoding": {
+          "type": "string",
+          "enum": [
+            "utf8",
+            "codepage"
+          ],
+          "enumDescriptions": [
+            "UTF-8 text, best for git and diff tools.",
+            "The project's own Windows code page (for example 1252), as the VBA editor writes and imports .bas files. Only single-byte code pages; others fall back to UTF-8."
+          ],
+          "default": "utf8",
+          "description": "Text encoding of the .bas, .cls and .frm files that Export all modules writes."
+        },
+        "vbaViewer.maxFileSizeMB": {
+          "type": "number",
+          "default": 200,
+          "minimum": 1,
+          "description": "Files larger than this open with a message instead of being read, so VS Code stays responsive."
+        },
+        "vbaViewer.showProTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Zovo Pro tools (export all modules, macro security scan, compare macros) in the Command Palette, the Explorer menu and the viewer toolbar. Everything free stays visible."
+        },
+        "vbaViewer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask once for a Marketplace rating after files opened without an error on two occasions at least 30 minutes apart. \"Later\" asks one more time after 7 days, \"No thanks\" never asks again. Nothing is sent anywhere."
+        },
+        "vbaViewer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Rate, More free tools and Zovo Pro links at the bottom of the viewer. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "vbaViewer.start",
+        "title": "Get started with the VBA Viewer",
+        "description": "Read the VBA macros inside Office files in VS Code, without Office.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open the macros of an Office file",
+            "description": "Right-click an .xlsm, .xls, .docm, .doc, .pptm or .ppt file in the Explorer and choose Open VBA Macros. A vbaProject.bin file opens in the viewer by default. Nothing runs: the macros are read as text.\n[Open the sample workbook](command:vbaViewer.openSample)",
+            "media": {
+              "image": "images/screenshot.png",
+              "altText": "The sample workbook open in the VBA Viewer: the module list, the source of a module with line numbers and colors, and the module details."
+            },
+            "completionEvents": [
+              "onCommand:vbaViewer.openSample"
+            ]
+          },
+          {
+            "id": "search",
+            "title": "Search every module at once",
+            "description": "Type in the search box of the viewer to find a word in all modules. Click a result to jump to that line. The details panel shows the module type, its size, its attributes and its procedures.",
+            "media": {
+              "markdown": "walkthrough/search.md"
+            }
+          },
+          {
+            "id": "zovo-related",
+            "title": "Tools for the rest of the file",
+            "description": "The sheets, documents and slides around the macros open in these free Zovo extensions. A link opens the extension page, and you choose there whether to install it.\n[XLSX Viewer](command:extension.open?%5B%22zovo.table-viewer-vscode%22%5D)\n[DOCX Viewer](command:extension.open?%5B%22zovo.docx-viewer-vscode%22%5D)\n[PPTX Viewer](command:extension.open?%5B%22zovo.pptx-slide-viewer%22%5D)\n[Hex Viewer](command:extension.open?%5B%22zovo.zovo-hex-viewer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/related.md"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node scripts/test.js",
+    "package": "npx -y @vscode/vsce@3 package --no-dependencies"
+  },
+  "devDependencies": {},
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike/sponsorships?tier_id=679878"
+  }
+}
